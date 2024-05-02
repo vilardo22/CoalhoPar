@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('media', function (Blueprint $table) {
-            $table->uuid('uuid')->primary(); // Chave primária UUID
-            $table->string('title');
-            $table->string('path');
-            $table->string('format');
-            $table->enum('type', ['image', 'video', 'audio']); // Enumerated type para MediaTypes
+        Schema::create('product_categories', function (Blueprint $table) {
+            $table-> foreignId('product_id')->constrained()->cascadeOnDelete();           
+            $table-> foreignId('category_id')->constrained()->cascadeOnDelete();
+
             $table->timestamps();
         });
     }
@@ -26,7 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('media');
+        Schema::dropIfExists('product_categories');
     }
 };
-

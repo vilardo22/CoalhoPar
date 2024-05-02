@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('user_telephones', function (Blueprint $table) {
             $table->id(); // Chave primária autoincrementada
-            $table->uuid('user_id'); // Chave estrangeira para users.uuid
-            $table->foreign('user_id')->references('uuid')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id'); // Chave estrangeira para users.uuid
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('telephone_id'); // Chave estrangeira para telephones.id
             $table->foreign('telephone_id')->references('id')->on('telephones')->onDelete('cascade');
             $table->tinyInteger('main')->default(false); // Coluna 'main' com valor padrão falso

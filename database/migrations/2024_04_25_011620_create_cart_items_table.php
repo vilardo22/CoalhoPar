@@ -13,10 +13,13 @@ return new class extends Migration
     {
         Schema::create('cart_items', function (Blueprint $table) {
             $table->id(); // Chave primária autoincrementada
-            $table->uuid('product_id'); // Chave estrangeira para products.uuid
-            $table->foreign('product_id')->references('uuid')->on('products')->onDelete('cascade');
+            $table->unsignedBigInteger('product_id'); // Chave estrangeira para products.uuid
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->integer('quantity'); // Coluna para a quantidade de itens
             $table->timestamps(); // Colunas created_at e updated_at
+        
+            $table->foreignId('cart_id')->constrained('carts')->cascadeOnDelete();
+
         });
     }
 

@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('customer_telephones', function (Blueprint $table) {
+        Schema::create('customer_media', function (Blueprint $table) {
             $table->id(); // Chave primária autoincrementada
             $table->unsignedBigInteger('customer_id'); // Chave estrangeira para customers.uuid
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
-            $table->unsignedBigInteger('telephone_id'); // Chave estrangeira para telephones.id
-            $table->foreign('telephone_id')->references('id')->on('telephones')->onDelete('cascade');
-            $table->tinyInteger('main')->default(false); // Coluna 'main' com valor padrão falso
-            $table->timestamps();
+            $table->unsignedBigInteger('media_id'); // Chave estrangeira para medias.uuid
+            $table->foreign('media_id')->references('id')->on('medias')->onDelete('cascade');
+            $table->timestamps(); // Colunas created_at e updated_at
         });
     }
 
@@ -27,6 +26,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('customer_telephones');
+        Schema::dropIfExists('customer_media');
     }
 };
+

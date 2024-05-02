@@ -11,14 +11,14 @@ class Customer extends Model
 
     protected $table = 'customers'; 
 
-    protected $primaryKey = 'uuid';
+    protected $primaryKey = 'id';
     
     public $incrementing = false;
     
     protected $keyType = 'string';
 
     protected $fillable = [
-        'uuid',
+        
         'name',
         'email',
         'registration_number',
@@ -33,6 +33,8 @@ class Customer extends Model
 
     public function adress()
     {
-        return $this->belongsToMany(Adress::class, CustomerAdress::class);
+        return $this->belongsToMany(Address::class, CustomerAddress::class);
     }
+
+    
 }

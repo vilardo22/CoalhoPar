@@ -12,10 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('cart_statuses', function (Blueprint $table) {
-            id integer [pk]
-  cart_id string [ref: > carts.uuid]
-  user_id string [null , ref: - users.uuid]
-  status CartStatuses
+            $table->id();
+            //cart_id string [ref: > carts.uuid]
+            $table->foreignId('cart_id')->constrained('carts')->cascadeOnDelete();
+            //user_id string [null , ref: - users.uuid]
+            $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->string('status');//status CartStatuses
             $table->timestamps();
         });
     }

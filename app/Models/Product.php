@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Product extends Model
 {
@@ -13,22 +14,22 @@ class Product extends Model
         'name',
         'price',
         'sku',
-        'slug',
+        'slug'
     ];
 
-    protected $primaryKey = 'id'; // Definir a chave primária
-
-    public $incrementing = false; // Indicar que a chave primária não é autoincrementável
-
-    protected $keyType = 'string'; // Tipo da chave primária
-
-    public function getIncrementing()
+    public function categories()
     {
-        return false; // Garantir que a chave primária não seja autoincrementável
+        return $this->belongsToMany(Category::class, ProductCategory::class);
     }
 
-    public function getKeyType()
+    protected static function boot()
     {
-        return 'string'; // Definir o tipo da chave primária como string
+        parent::boot();
+
+        static::creating(function ($product) {
+            if (empty($product->slug)) {
+                $product->slug = Str::slug($product->name);
+            }
+        });
     }
 }
