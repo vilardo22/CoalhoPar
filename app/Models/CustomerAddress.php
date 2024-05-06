@@ -9,6 +9,8 @@ class CustomerAddress extends Model
 {
     use HasFactory;
 
+    protected $table = 'customer_addresses'; 
+
     protected $fillable = [
         'customer_id',
         'address_id',
@@ -17,11 +19,11 @@ class CustomerAddress extends Model
 
     public function customer()
     {
-        return $this->belongsTo(Customer::class, 'customer_id', 'uuid');
+        return $this->belongsTo(Customer::class, 'customer_id');
     }
-
+    
     public function address()
     {
-        return $this->belongsTo(Address::class);
+        return $this->belongsTo(Address::class, 'address_id');
     }
 }

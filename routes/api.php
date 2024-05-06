@@ -1,10 +1,14 @@
 <?php
 
+use App\Http\Controllers\AddressesController;
 use App\Http\Controllers\AdressController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerAddressController;
+use App\Http\Controllers\CustomerAddressesController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,7 +27,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('addresses',AdressController::class);
+
 
 Route::apiResource('categories',CategoryController::class);
 
@@ -36,4 +40,19 @@ Route::prefix('products/{product}/categories')->group(function(){
     Route::post('/', [ProductCategoryController::class, 'store']);
 
 });
-Route::apiResource('customers',CustomerController::class);
+
+
+Route::apiResource('customers',CustomerController::class)
+    ->only(['index','store','show']);
+
+    Route::apiResource('addresses',AddressesController::class)
+    ->only(['index','store','show']);
+
+
+    Route::prefix('customers/{customer}/addresses')->group(function(){
+
+
+        Route::get('/', [CustomerAddressesController::class, 'index']);
+        Route::post('/', [CustomerAddressesController::class, 'store']);
+    
+    });

@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Customer;
+use App\Models\Address;
 use Illuminate\Http\Request;
 
-class CustomerController extends Controller
+class AddressesController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Customer::all();
+        return Address::all();
     }
 
     /**
@@ -20,17 +20,7 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        $name = $request->input('name');
-        $email = $request->input('email');
-        $registration_number = $request->input('registration_number');
-        $password = $request->input('password');
-
-            return Customer::create([
-                "name" => $name,
-                "email" => $email,
-                "registration_number" => $registration_number,
-                "password" => $password
-            ]);
+        return Address::create($request->all());
     }
 
     /**
@@ -38,7 +28,7 @@ class CustomerController extends Controller
      */
     public function show(string $id)
     {
-        return Customer::finfOr($id, fn()=> abort(404));
+        return Address::findOrfail($id);
     }
 
     /**

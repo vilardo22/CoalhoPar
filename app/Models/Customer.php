@@ -1,5 +1,7 @@
 <?php
 
+// app/Models/Customer.php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,7 +11,7 @@ class Customer extends Model
 {
     use HasFactory;
 
-    protected $table = 'customers'; 
+    protected $table = 'customer'; 
 
     protected $primaryKey = 'id';
     
@@ -18,7 +20,6 @@ class Customer extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
-        
         'name',
         'email',
         'registration_number',
@@ -28,13 +29,11 @@ class Customer extends Model
 
     protected $hidden = [
         'password',
-];
+    ];
 
-
-    public function adress()
+    public function addresses()
     {
-        return $this->belongsToMany(Address::class, CustomerAddress::class);
+        return $this->belongsToMany(Address::class,CustomerAddress::class);
     }
-
-    
 }
+

@@ -19,4 +19,9 @@ class Address extends Model
         "state",
         "country",
     ];
+
+    public function customers()
+    {
+        return $this->belongsToMany(Customer::class, CustomerAddress::class);
+    }
 }

@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
 use Illuminate\Http\Request;
 
-class CustomerAddressController extends Controller
+class CustomerAddressesController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($customerId)
     {
-        //
+        return Address::whereHas ('customers', function($query)use($customerId) {
+            $query->where('customers.id', $customerId);
+        })->get();
     }
 
     /**
